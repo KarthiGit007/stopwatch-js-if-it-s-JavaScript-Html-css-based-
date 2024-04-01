@@ -1,0 +1,213 @@
+import React, { useEffect, useState } from "react";
+
+function Sum() {
+  const [miliSecond, setMiliSecond] = useState(0)
+  const [seconds, setSeconds] = useState(58)
+  const [mins, setMins] = useState(58)
+  const [hours, setHours] = useState(23)
+  const [isClicked, setIsClicked] = useState(false)
+  const [isStop, setIsStopClicked] = useState(true)
+
+  const handleClick = () => {
+    setIsClicked(true)
+    setIsStopClicked(true)
+  }
+
+  const handleStop = () => {
+    setIsStopClicked(false)
+    setIsClicked(false)
+  }
+
+  const handleReset = () => {
+
+    setMins(0)
+    setHours(0)
+    setMiliSecond(0)
+    setSeconds(0)
+  }
+  useEffect(() => {
+    if (isClicked === true) {
+      setTimeout(() => {
+        setMiliSecond(miliSecond + 1)
+        if (miliSecond === 99) {
+          setSeconds(seconds + 1)
+          setMiliSecond(0)
+        }
+        if (seconds === 60) {
+          setMins(mins + 1)
+          setSeconds(0)
+        }
+        if (mins === 60) {
+          setHours(hours + 1)
+          setMins(0)
+        }
+        if (hours === 24) {
+          setHours(0)
+        }
+      }, 10);
+    }
+  }, [isClicked, miliSecond, seconds, mins, hours])
+  return (
+    <>
+      <div className="row content">
+        <div className="col-lg-3"></div>
+        <div className="col-lg-6 col-md-8 col-sm-10 bg-light rounded-3 mb-2">
+          <div className="clock ">
+            <div style={{ width: '100px' }}>{(hours < 10) ? <span className="count">0{hours}</span> : <span className="count">{hours}</span>}</div>
+            <div><span className="count">:</span></div>
+            <div style={{ width: '100px' }}>{(mins < 10) ? <span className="count">0{mins}</span> : <span className="count">{mins}</span>}</div>
+            <div ><span className="count">:</span></div>
+            <div style={{ width: '100px' }}>{(seconds < 10) ? <span className="count">0{seconds}</span> : <span className="count">{seconds}</span>}</div>
+            <div ><span className="count1">:</span></div>
+            <div style={{ width: '100px' }}>{(miliSecond < 10) ? <span className="count1">0{miliSecond}</span> : <span className="count1">{miliSecond}</span>}</div>
+
+          </div>
+
+        </div>
+        <div className="col-lg-3 col-xs-1"></div>
+        <div className="col-lg-3"></div>
+        <div className="col-lg-6 col-md-8 col-sm-10 mt-4">
+          <div className="bton">
+            <div><button className="me-3 btno" onClick={handleClick}>Start</button></div>
+            <div><button className="me-3 btno" onClick={handleStop}>Stop</button></div>
+            <div><button className="btno" onClick={handleReset}>Reset</button>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div className="col-lg-3"></div>
+      </div>
+
+    </>
+  )
+
+}
+export default Sum;
+
+
+
+
+//StyleSheet
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;1,200&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color:#7900d5;
+    text-align: center;
+}
+.content{
+   
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;
+
+}
+.bton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btno{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+   
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 30px;
+    color: #7900d5 ;
+}
+
+.btno:hover{
+    background-color: #a139fb;
+    color: white;
+}
+.clock{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    align-items: center;
+    
+}
+.count{
+    font-weight: bolder;
+    font-size: 100px;
+}
+.count1{
+    font-weight: bolder;
+    font-size: 100px;
+    color:#7900d5;
+
+}
+
+@media (max-width: 1300px) {
+    .count{
+        font-size: 80px;
+    }
+    .count1{
+       
+        font-size: 80px;
+        
+    
+    }
+    .content{
+   
+       
+        margin-top: 18%;
+    
+    }
+
+}
+@media (max-width: 900px) {
+    .count{
+        font-size: 80px;
+    }
+    .count1{
+       
+        font-size: 80px;
+    }
+    .content{
+        margin-top: 25%;
+    
+    }
+
+}
+@media(max-width:600px){
+    .count{
+        font-size: 50px;
+    }
+    .count1{
+       
+        font-size: 50px;
+        
+    
+    }
+    .btno{
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+       
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 20px;
+        color: #7900d5 ;
+    }
+    .content{
+   
+       
+        margin-top: 50%;
+    
+    }
+
+}
+
+
